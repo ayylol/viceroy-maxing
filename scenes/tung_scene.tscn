@@ -40,6 +40,10 @@ data = PackedVector3Array(1, 0.5, 1, 1, -0.5, 1, -1, -0.5, 1, 1, 0.5, -1, -1, -0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yv14j")
 
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.187792, -0.977731, 0.0936797, 0.240588, 0.0466819, 0.969504, -0.952288, 0.204603, 0.226464, 0, 5.97522, 0)
+shadow_enabled = true
+
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_5gfmb")
 
