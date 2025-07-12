@@ -42,7 +42,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
 [node name="Timer" type="Timer" parent="StockMarketViewer"]
-wait_time = 0.109
+wait_time = 0.172
 autostart = true
 
 [connection signal="timeout" from="StockMarketViewer/Timer" to="StockMarketViewer/HBoxContainer/VBoxContainer/Graph" method="_on_timer_timeout"]

@@ -3,14 +3,14 @@ extends PanelContainer
 var margin
 var margin_min
 var margin_max
-var graph = []
+var graph = [5]
 var graph_max = 20.0
 
 func _draw():
 	margin = max(size.x * 0.05, size.y*0.05)
 	margin_min = Vector2(margin, margin)
 	margin_max = size-margin_min
-	if not graph.is_empty():
+	if graph.size() > 1:
 		draw_graph()
 	draw_graph_bounds()
 
@@ -39,7 +39,11 @@ func draw_graph_bounds():
 	draw_line(Vector2(margin_min.x, margin_max.y), margin_max, Color.BLACK, 1.5, true)
 
 func _on_timer_timeout():
-	graph.clear()
-	for i in range(100):
-		graph.append(randf()*graph_max)
+	var jitter=randf()-0.5
+	var chance_of_event = randf()
+	if chance_of_event > 0.9:
+		jitter+=randf()*2
+	elif chance_of_event < 0.1:
+		jitter-=randf()*2
+	graph.append(clamp(graph.back()+jitter,0,graph_max))
 	queue_redraw()
