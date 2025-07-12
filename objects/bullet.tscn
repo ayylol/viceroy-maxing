@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5y12d6f3poxt"]
+
+[ext_resource type="Script" uid="uid://jbwh7brlw6gi" path="res://objects/bullet.gd" id="1_1hbe6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_f1esg"]
+lightmap_size_hint = Vector2i(17, 9)
+radial_segments = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hbe6"]
+albedo_color = Color(0.933333, 0.792157, 0.176471, 1)
+metallic_specular = 1.0
+roughness = 0.0
+rim_enabled = true
+rim = 0.54
+rim_tint = 1.0
+anisotropy = 0.17
+refraction_scale = 0.25
+distance_fade_min_distance = 1439.68
+distance_fade_max_distance = 0.0
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_1hbe6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_f1esg")
+surface_material_override/0 = SubResource("StandardMaterial3D_1hbe6")

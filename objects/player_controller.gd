@@ -55,6 +55,8 @@ const tilt_upper_limit : float = deg_to_rad(90)
 @onready var dash_left : int = dash_count
 @onready var wall_bounce_left : int = wall_bounce_count
 
+@onready var gun_animation_player: AnimationPlayer = $Camera3D/Gun/AnimationPlayer
+
 # jump variables
 var _jump_velocity : float
 var _base_gravity : float
@@ -172,5 +174,8 @@ func _physics_process(delta: float) -> void:
 				velocity.x *= wall_friction_multiplier
 				velocity.z *= wall_friction_multiplier
 				velocity.y = maxf(velocity.y, -wall_sliding_speed)
+
+	if Input.is_action_just_pressed("shoot"):
+		gun_animation_player.play("shoot")
 
 	move_and_slide()
