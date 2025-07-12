@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://w8724wma7kbi"]
+[gd_scene load_steps=3 format=3 uid="uid://dqmh8wtvgqnhf"]
 
 [ext_resource type="Script" uid="uid://pbx1gsj5c4tq" path="res://objects/player_controller.gd" id="1_eqqp1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5gfmb"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_eqqp1")
 look_sensitivity = 0.3
 jump_height = 4.0

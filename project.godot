@@ -14,6 +14,10 @@ config/name="viceroy-maxing"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[global_group]
+
+player=""
+
 [input]
 
 move_left={
