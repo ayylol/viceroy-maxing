@@ -6,13 +6,6 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_eqqp1")
-jump_height = 4.0
-jump_duration = 0.5
-fall_duration = 0.5
-peak_multiplier = 0.5
-wall_sliding_speed = 4.0
-coyote_time = 0.2
-jump_buffer = 0.2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
