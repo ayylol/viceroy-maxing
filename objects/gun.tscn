@@ -91,7 +91,3 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 libraries = {
 &"": SubResource("AnimationLibrary_dt30g")
 }
-
-[node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490502, 1.63284)
-target_position = Vector3(0, 0, 1)
