@@ -6,7 +6,6 @@
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_eqqp1")
-look_sensitivity = 0.3
 jump_height = 4.0
 jump_duration = 0.5
 fall_duration = 0.5

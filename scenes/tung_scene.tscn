@@ -87,6 +87,7 @@ shape = SubResource("ConcavePolygonShape3D_0x35f")
 
 [node name="Player" parent="." instance=ExtResource("1_nhyco")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0665493, 2.06634, 0.0188904)
+running_accel_time = 0.05
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 light_data = ExtResource("2_nhyco")
