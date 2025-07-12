@@ -39,11 +39,20 @@ func draw_graph_bounds():
 	draw_line(Vector2(margin_min.x, margin_max.y), margin_max, Color.BLACK, 1.5, true)
 
 func _on_timer_timeout():
-	var jitter=randf()-0.5
+	var jitter=randf()-0.49
 	var chance_of_event = randf()
-	if chance_of_event > 0.9:
+	if chance_of_event > 0.95:
 		jitter+=randf()*2
-	elif chance_of_event < 0.1:
+	elif chance_of_event < 0.05:
 		jitter-=randf()*2
+	if graph.size()>8:
+		var t = 0
+		for i in range(4):
+			t+=graph[graph.size()-3-i]
+		jitter += ((t/4.0) - graph.back())/8
+	if graph.back() > 0.75*graph_max:
+		jitter-=randf()*0.3
+	if graph.back() < 0.25*graph_max:
+		jitter+=randf()*0.3
 	graph.append(clamp(graph.back()+jitter,0,graph_max))
 	queue_redraw()
