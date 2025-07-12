@@ -1,17 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://srcvv7dctmcw"]
+[gd_scene load_steps=13 format=3 uid="uid://srcvv7dctmcw"]
 
 [ext_resource type="PackedScene" uid="uid://w8724wma7kbi" path="res://objects/player.tscn" id="1_nhyco"]
-[ext_resource type="LightmapGIData" uid="uid://d02u3iq68f20h" path="res://scenes/tung_scene.lmbake" id="2_nhyco"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yv14j"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
 [sub_resource type="Sky" id="Sky_nhyco"]
 sky_material = SubResource("ProceduralSkyMaterial_yv14j")
 
-[sub_resource type="Environment" id="Environment_yv14j"]
+[sub_resource type="Environment" id="Environment_hf6oe"]
 background_mode = 2
 sky = SubResource("Sky_nhyco")
-ambient_light_source = 3
+tonemap_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5gfmb"]
 lightmap_size_hint = Vector2i(162, 162)
@@ -47,8 +48,12 @@ data = PackedVector3Array(-0.5, 8, 0.5, 0.5, 8, 0.5, -0.5, -8, 0.5, 0.5, 8, 0.5,
 
 [node name="TungScene" type="Node"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_yv14j")
+environment = SubResource("Environment_hf6oe")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_5gfmb")
@@ -87,6 +92,3 @@ shape = SubResource("ConcavePolygonShape3D_0x35f")
 
 [node name="Player" parent="." instance=ExtResource("1_nhyco")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0665493, 2.06634, 0.0188904)
-
-[node name="LightmapGI" type="LightmapGI" parent="."]
-light_data = ExtResource("2_nhyco")
