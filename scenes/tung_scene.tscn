@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://srcvv7dctmcw"]
+[gd_scene load_steps=14 format=3 uid="uid://srcvv7dctmcw"]
 
-[ext_resource type="Script" uid="uid://pbx1gsj5c4tq" path="res://objects/player_controller.gd" id="1_yv14j"]
+[ext_resource type="PackedScene" uid="uid://w8724wma7kbi" path="res://objects/player.tscn" id="1_nhyco"]
 [ext_resource type="LightmapGIData" uid="uid://d02u3iq68f20h" path="res://scenes/tung_scene.lmbake" id="2_nhyco"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yv14j"]
@@ -45,8 +45,6 @@ size = Vector3(1, 16, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0x35f"]
 data = PackedVector3Array(-0.5, 8, 0.5, 0.5, 8, 0.5, -0.5, -8, 0.5, 0.5, 8, 0.5, 0.5, -8, 0.5, -0.5, -8, 0.5, 0.5, 8, -0.5, -0.5, 8, -0.5, 0.5, -8, -0.5, -0.5, 8, -0.5, -0.5, -8, -0.5, 0.5, -8, -0.5, 0.5, 8, 0.5, 0.5, 8, -0.5, 0.5, -8, 0.5, 0.5, 8, -0.5, 0.5, -8, -0.5, 0.5, -8, 0.5, -0.5, 8, -0.5, -0.5, 8, 0.5, -0.5, -8, -0.5, -0.5, 8, 0.5, -0.5, -8, 0.5, -0.5, -8, -0.5, 0.5, 8, 0.5, -0.5, 8, 0.5, 0.5, 8, -0.5, -0.5, 8, 0.5, -0.5, 8, -0.5, 0.5, 8, -0.5, -0.5, -8, 0.5, 0.5, -8, 0.5, -0.5, -8, -0.5, 0.5, -8, 0.5, 0.5, -8, -0.5, -0.5, -8, -0.5)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5gfmb"]
-
 [node name="TungScene" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -87,23 +85,8 @@ mesh = SubResource("BoxMesh_hf6oe")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="High Wall/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_0x35f")
 
-[node name="Player" type="CharacterBody3D" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_nhyco")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0665493, 2.06634, 0.0188904)
-script = ExtResource("1_yv14j")
-look_sensitivity = 0.3
-jump_height = 4.0
-jump_duration = 0.5
-fall_duration = 0.5
-peak_multiplier = 0.5
-wall_sliding_speed = 4.0
-coyote_time = 0.2
-jump_buffer = 0.2
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_5gfmb")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 light_data = ExtResource("2_nhyco")
