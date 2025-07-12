@@ -175,7 +175,7 @@ func _physics_process(delta: float) -> void:
 				velocity.z *= wall_friction_multiplier
 				velocity.y = maxf(velocity.y, -wall_sliding_speed)
 
-	if Input.is_action_just_pressed("shoot"):
-		gun_animation_player.play("shoot")
+	if Input.is_action_pressed("shoot"):
+		gun_animation_player.play("spin")
 
 	move_and_slide()
