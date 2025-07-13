@@ -58,6 +58,9 @@ const tilt_upper_limit : float = deg_to_rad(90)
 @onready var dash_left : int = dash_count
 @onready var wall_bounce_left : int = wall_bounce_count
 
+@onready var wall_jump_hud := $HUD/HBoxContainer/WallJumpHud
+@onready var dash_hud := $HUD/HBoxContainer/DashHud
+
 # jump variables
 var _jump_velocity : float
 var _base_gravity : float
@@ -82,6 +85,7 @@ func state_process(delta: float) -> void:
 		else:
 			dash_recharge_timer = dash_recharge
 			dash_left = dash_count
+			dash_hud.value = 100.0
 
 	if is_on_floor() or is_on_wall():
 		coyote_timer = coyote_time
@@ -120,7 +124,7 @@ func _process(delta: float) -> void:
 	var current_speed : float = Vector3(velocity.x, 0., velocity.z).length()
 	var max_speed : float = dash_speed
 	var min_speed : float = running_speed
-	camera.fov = lerpf(75, 65, (current_speed - min_speed) / (max_speed - min_speed))
+	camera.fov = lerpf(75, 73, (current_speed - min_speed) / (max_speed - min_speed))
 
 	global_transform.basis = Basis.from_euler(_player_rotation)
 
@@ -135,6 +139,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		if is_on_floor():
 			wall_bounce_left = wall_bounce_count
+			wall_jump_hud.value = 100.0
 
 		var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		var input_direction := Vector3(input_vector.x, 0., input_vector.y)
@@ -148,6 +153,7 @@ func _physics_process(delta: float) -> void:
 			if dash_left >= dash_count:
 				dash_recharge_timer = dash_recharge
 			dash_left -= 1
+			dash_hud.value = dash_left*100.0/dash_count
 			return
 		elif wall_bounce_timer <= 0.:
 			var running_direction : Vector3 = (transform.basis * input_direction).normalized()
@@ -175,6 +181,7 @@ func _physics_process(delta: float) -> void:
 					var bounce_direction = (get_wall_normal() + Vector3.UP * 2.).normalized()
 					velocity = bounce_direction * _jump_velocity
 					wall_bounce_left -= 1
+					wall_jump_hud.value = wall_bounce_left*100.0/wall_bounce_count
 			else:
 				velocity.y = _jump_velocity
 			if not Input.is_action_pressed("jump"):
