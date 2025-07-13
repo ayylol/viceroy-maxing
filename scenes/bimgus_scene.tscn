@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://tjenxyixrpq6"]
 
-[ext_resource type="PackedScene" path="res://objects/stock_market_viewer.tscn" id="1_j1mk3"]
+[ext_resource type="PackedScene" uid="uid://cnwt7xt30k64x" path="res://objects/stock_market_viewer.tscn" id="1_j1mk3"]
 [ext_resource type="PackedScene" uid="uid://w8724wma7kbi" path="res://objects/player.tscn" id="2_pp3j1"]
 [ext_resource type="Script" uid="uid://bojo4prr5pkom" path="res://objects/delivery_manager.gd" id="3_ugubb"]
 [ext_resource type="PackedScene" uid="uid://di5osqjn20w7i" path="res://objects/collectible.tscn" id="4_bicfj"]
