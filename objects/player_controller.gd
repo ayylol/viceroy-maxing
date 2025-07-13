@@ -55,6 +55,7 @@ const tilt_upper_limit : float = deg_to_rad(90)
 @onready var dash_left : int = dash_count
 @onready var wall_bounce_left : int = wall_bounce_count
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var gun_animation_player: AnimationPlayer = $Camera3D/Gun/AnimationPlayer
 
 # jump variables
@@ -130,6 +131,7 @@ func _physics_process(delta: float) -> void:
 			if dash_left >= dash_count:
 				dash_recharge_timer = dash_recharge
 			dash_left -= 1
+			animation_player.play("dash")
 
 		if is_on_floor():
 			wall_bounce_left = wall_bounce_count
