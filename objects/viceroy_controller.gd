@@ -125,6 +125,11 @@ func wall_bounce() -> bool:
 func slide() -> bool:
 	if slide_buffer_timer > 0. and is_on_floor():
 		current_state = State.SLIDING
+		var horizontal_input = get_horizontal_input()
+		if horizontal_input:
+			_horizontal_velocity = horizontal_input * _horizontal_velocity.length()
+		else:
+			_horizontal_velocity = get_forward_direction() * _horizontal_velocity.length()
 		return true
 	return false
 
@@ -169,10 +174,11 @@ func dashing_process(delta: float) -> void:
 		return
 
 func slamming_process(_delta: float) -> void:
-	_vertical_velocity = -slamming_speed
 	if is_on_floor():
 		current_state = State.WALKING
 		return
+	_vertical_velocity = -slamming_speed
+	_horizontal_velocity = get_horizontal_input() * walking_speed
 
 func falling_process(delta: float) -> void:
 	if is_on_floor():
@@ -207,6 +213,8 @@ func wall_climbing_process(delta: float) -> void:
 	if wall_bounce():
 		return
 	if dash():
+		return
+	if slam():
 		return
 	_vertical_velocity -= _gravity * delta
 	_vertical_velocity = maxf(_vertical_velocity, -wall_fall_speed)
