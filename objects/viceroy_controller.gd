@@ -6,7 +6,11 @@ extends CharacterBody3D
 @export var walking_height : float = .5
 @export var sliding_height : float = -.5
 
-@onready var camera : Camera3D = $Camera3D
+@export var camera_max_tilt : float = .02
+@export var camera_tilt_speed : float = .5
+
+@onready var head : Node3D = $Head
+@onready var camera : Camera3D = $Head/Camera3D
 
 var _mouse_rotation : Vector3
 var _rotation_input : float
@@ -243,18 +247,27 @@ func camera_process(delta: float) -> void:
 	_mouse_rotation.y += _rotation_input * look_sensitivity * delta
 	_mouse_rotation.x = clamp(_mouse_rotation.x, PI * -.5, PI * .5)
 
-	camera.transform.basis = Basis.from_euler(Vector3(_mouse_rotation.x, 0., 0.))
-	camera.rotation.z = 0.
+	head.transform.basis = Basis.from_euler(Vector3(_mouse_rotation.x, 0., 0.))
+	head.rotation.z = .0
 
+	# Camera Tilt
 	global_transform.basis = Basis.from_euler(Vector3(0., _mouse_rotation.y, 0.))
+	var lr_axis := Input.get_axis("move_left", "move_right")
+	if lr_axis < 0.:
+		camera.rotation.z = min(camera_max_tilt, camera.rotation.z+camera_tilt_speed*delta)
+	elif lr_axis > 0.:
+		camera.rotation.z = max(-camera_max_tilt, camera.rotation.z-camera_tilt_speed*delta)
+	elif camera.rotation.z != 0.:
+		var new_camera_tilt = camera.rotation.z-camera_tilt_speed*delta*sign(camera.rotation.z)
+		camera.rotation.z = new_camera_tilt if sign(new_camera_tilt) == sign(camera.rotation.z) else 0. 
 
 	_rotation_input = 0.
 	_tilt_input = 0.
 
 	if current_state == State.SLIDING:
-		camera.position.y = sliding_height
+		head.position.y = sliding_height
 	else:
-		camera.position.y = walking_height
+		head.position.y = walking_height
 
 func get_horizontal_input() -> Vector2:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
