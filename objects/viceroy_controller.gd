@@ -7,6 +7,8 @@ extends CharacterBody3D
 @export var sliding_height : float = -.5
 
 @onready var camera : Camera3D = $Camera3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var gun_animation_player: AnimationPlayer = $Camera3D/Gun/AnimationPlayer
 
 var _mouse_rotation : Vector3
 var _rotation_input : float
@@ -107,6 +109,7 @@ func dash() -> bool:
 			_horizontal_velocity = get_forward_direction() * dashing_speed
 		dash_timer = dash_duration
 		current_state = State.DASHING
+		animation_player.play("dash")
 		return true
 	return false
 
@@ -315,5 +318,8 @@ func _physics_process(delta: float) -> void:
 			wall_bouncing_process(delta)
 
 	velocity = Vector3(_horizontal_velocity.x, _vertical_velocity, _horizontal_velocity.y)
+	
+	if Input.is_action_pressed("shoot"):
+		gun_animation_player.play("spin")
 
 	move_and_slide()
