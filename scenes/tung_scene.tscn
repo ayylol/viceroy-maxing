@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://srcvv7dctmcw"]
+[gd_scene load_steps=8 format=3 uid="uid://srcvv7dctmcw"]
 
 [ext_resource type="PackedScene" uid="uid://w8724wma7kbi" path="res://objects/player.tscn" id="1_nhyco"]
+[ext_resource type="Texture2D" uid="uid://cgj6d6by4klhm" path="res://assets/kenney_prototype_textures/Dark/texture_09.png" id="2_nhyco"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yv14j"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -14,37 +15,14 @@ background_mode = 2
 sky = SubResource("Sky_nhyco")
 tonemap_mode = 2
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_5gfmb"]
-lightmap_size_hint = Vector2i(162, 162)
-add_uv2 = true
-size = Vector2(32, 32)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nhyco"]
+albedo_texture = ExtResource("2_nhyco")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yv14j"]
-data = PackedVector3Array(16, 0, 16, -16, 0, 16, 16, 0, -16, -16, 0, 16, -16, 0, -16, 16, 0, -16)
-
-[sub_resource type="BoxMesh" id="BoxMesh_yv14j"]
-lightmap_size_hint = Vector2i(89, 166)
-add_uv2 = true
-size = Vector3(16, 8, 1)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nhyco"]
-data = PackedVector3Array(-8, 4, 0.5, 8, 4, 0.5, -8, -4, 0.5, 8, 4, 0.5, 8, -4, 0.5, -8, -4, 0.5, 8, 4, -0.5, -8, 4, -0.5, 8, -4, -0.5, -8, 4, -0.5, -8, -4, -0.5, 8, -4, -0.5, 8, 4, 0.5, 8, 4, -0.5, 8, -4, 0.5, 8, 4, -0.5, 8, -4, -0.5, 8, -4, 0.5, -8, 4, -0.5, -8, 4, 0.5, -8, -4, -0.5, -8, 4, 0.5, -8, -4, 0.5, -8, -4, -0.5, 8, 4, 0.5, -8, 4, 0.5, 8, 4, -0.5, -8, 4, 0.5, -8, 4, -0.5, 8, 4, -0.5, -8, -4, 0.5, 8, -4, 0.5, -8, -4, -0.5, 8, -4, 0.5, 8, -4, -0.5, -8, -4, -0.5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_nhyco"]
-lightmap_size_hint = Vector2i(89, 166)
-add_uv2 = true
-size = Vector3(16, 8, 1)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hf6oe"]
-data = PackedVector3Array(-8, 4, 0.5, 8, 4, 0.5, -8, -4, 0.5, 8, 4, 0.5, 8, -4, 0.5, -8, -4, 0.5, 8, 4, -0.5, -8, 4, -0.5, 8, -4, -0.5, -8, 4, -0.5, -8, -4, -0.5, 8, -4, -0.5, 8, 4, 0.5, 8, 4, -0.5, 8, -4, 0.5, 8, 4, -0.5, 8, -4, -0.5, 8, -4, 0.5, -8, 4, -0.5, -8, 4, 0.5, -8, -4, -0.5, -8, 4, 0.5, -8, -4, 0.5, -8, -4, -0.5, 8, 4, 0.5, -8, 4, 0.5, 8, 4, -0.5, -8, 4, 0.5, -8, 4, -0.5, 8, 4, -0.5, -8, -4, 0.5, 8, -4, 0.5, -8, -4, -0.5, 8, -4, 0.5, 8, -4, -0.5, -8, -4, -0.5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hf6oe"]
-lightmap_size_hint = Vector2i(14, 171)
-add_uv2 = true
-size = Vector3(1, 16, 1)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0x35f"]
-data = PackedVector3Array(-0.5, 8, 0.5, 0.5, 8, 0.5, -0.5, -8, 0.5, 0.5, 8, 0.5, 0.5, -8, 0.5, -0.5, -8, 0.5, 0.5, 8, -0.5, -0.5, 8, -0.5, 0.5, -8, -0.5, -0.5, 8, -0.5, -0.5, -8, -0.5, 0.5, -8, -0.5, 0.5, 8, 0.5, 0.5, 8, -0.5, 0.5, -8, 0.5, 0.5, 8, -0.5, 0.5, -8, -0.5, 0.5, -8, 0.5, -0.5, 8, -0.5, -0.5, 8, 0.5, -0.5, -8, -0.5, -0.5, 8, 0.5, -0.5, -8, 0.5, -0.5, -8, -0.5, 0.5, 8, 0.5, -0.5, 8, 0.5, 0.5, 8, -0.5, -0.5, 8, 0.5, -0.5, 8, -0.5, 0.5, 8, -0.5, -0.5, -8, 0.5, 0.5, -8, 0.5, -0.5, -8, -0.5, 0.5, -8, 0.5, 0.5, -8, -0.5, -0.5, -8, -0.5)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hf6oe"]
 
 [node name="TungScene" type="Node"]
 
@@ -55,40 +33,20 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hf6oe")
 
-[node name="Floor" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_5gfmb")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_yv14j")
-
-[node name="Wall" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
-mesh = SubResource("BoxMesh_yv14j")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_nhyco")
-
-[node name="Wall2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -8)
-mesh = SubResource("BoxMesh_nhyco")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_hf6oe")
-
-[node name="High Wall" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
-mesh = SubResource("BoxMesh_hf6oe")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="High Wall"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="High Wall/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_0x35f")
-
 [node name="Player" parent="." instance=ExtResource("1_nhyco")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0665493, 2.06634, 0.0188904)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Viceroy" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_nhyco")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Viceroy"]
+size = Vector3(16, 1, 16)
+material = SubResource("StandardMaterial3D_hf6oe")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Viceroy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Viceroy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 0)
+size = Vector3(1, 8, 8)
