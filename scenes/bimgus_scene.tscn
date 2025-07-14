@@ -1,3 +1,102 @@
-[gd_scene format=3 uid="uid://tjenxyixrpq6"]
+[gd_scene load_steps=11 format=3 uid="uid://tjenxyixrpq6"]
+
+[ext_resource type="PackedScene" uid="uid://cnwt7xt30k64x" path="res://objects/stock_market_viewer.tscn" id="1_j1mk3"]
+[ext_resource type="PackedScene" uid="uid://dqmh8wtvgqnhf" path="res://objects/player.tscn" id="2_pp3j1"]
+[ext_resource type="Script" uid="uid://bojo4prr5pkom" path="res://objects/delivery_manager.gd" id="3_ugubb"]
+[ext_resource type="PackedScene" uid="uid://di5osqjn20w7i" path="res://objects/collectible.tscn" id="4_bicfj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pp3j1"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ugubb"]
+sky_material = SubResource("ProceduralSkyMaterial_pp3j1")
+
+[sub_resource type="Environment" id="Environment_bicfj"]
+background_mode = 2
+sky = SubResource("Sky_ugubb")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ugubb"]
+lightmap_size_hint = Vector2i(162, 162)
+add_uv2 = true
+size = Vector2(32, 32)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bicfj"]
+data = PackedVector3Array(16, 0, 16, -16, 0, 16, 16, 0, -16, -16, 0, 16, -16, 0, -16, 16, 0, -16)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pp3j1"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="BimgusScene" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bicfj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.671721, -0.720033, 0.174194, 0, 0.235142, 0.971961, -0.740805, 0.652886, -0.15795, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StockMarketViewer" parent="." instance=ExtResource("1_j1mk3")]
+visible = false
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_ugubb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_bicfj")
+
+[node name="Player" parent="." instance=ExtResource("2_pp3j1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.64161, 1.65527, 4.0615)
+
+[node name="DeliveryManager" type="Node" parent="."]
+script = ExtResource("3_ugubb")
+collectible_scene = ExtResource("4_bicfj")
+
+[node name="DeliverySources" type="Node" parent="DeliveryManager"]
+
+[node name="Source1" type="Node3D" parent="DeliveryManager/DeliverySources"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0829, 1.27457, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryManager/DeliverySources/Source1"]
+mesh = SubResource("BoxMesh_pp3j1")
+
+[node name="Source2" type="Node3D" parent="DeliveryManager/DeliverySources"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0829, 1.27457, 8.4475)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryManager/DeliverySources/Source2"]
+mesh = SubResource("BoxMesh_pp3j1")
+
+[node name="Source3" type="Node3D" parent="DeliveryManager/DeliverySources"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91249, 1.27457, -8.90627)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryManager/DeliverySources/Source3"]
+mesh = SubResource("BoxMesh_pp3j1")
+
+[node name="DeliveryTargets" type="Node" parent="DeliveryManager"]
+
+[node name="Target1" type="Node3D" parent="DeliveryManager/DeliveryTargets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.98121, 1.27457, 7.58945)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryManager/DeliveryTargets/Target1"]
+mesh = SubResource("BoxMesh_pp3j1")
+
+[node name="Target2" type="Node3D" parent="DeliveryManager/DeliveryTargets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61295, 1.27457, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryManager/DeliveryTargets/Target2"]
+mesh = SubResource("BoxMesh_pp3j1")
+
+[node name="Target3" type="Node3D" parent="DeliveryManager/DeliveryTargets"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.61295, 1.27457, -7.74004)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DeliveryManager/DeliveryTargets/Target3"]
+mesh = SubResource("BoxMesh_pp3j1")
+
+[node name="Timer" type="Timer" parent="DeliveryManager"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="DeliveryManager/Timer" to="DeliveryManager" method="create_quest"]

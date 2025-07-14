@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://di5osqjn20w7i"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ugubb"]
+radius = 2.21972
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ugubb"]
+top_radius = 0.2
+height = 1.0
+
+[node name="Collectible" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ugubb")
+debug_color = Color(0.06, 0.859, 1, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_ugubb")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.900344, 0)
+pixel_size = 0.01
+billboard = 2
