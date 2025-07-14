@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://srcvv7dctmcw"]
+[gd_scene load_steps=9 format=3 uid="uid://srcvv7dctmcw"]
 
 [ext_resource type="PackedScene" uid="uid://w8724wma7kbi" path="res://objects/player.tscn" id="1_nhyco"]
 [ext_resource type="Texture2D" uid="uid://cgj6d6by4klhm" path="res://assets/kenney_prototype_textures/Dark/texture_09.png" id="2_nhyco"]
+[ext_resource type="Script" uid="uid://bhbnckoxjn7o" path="res://objects/player_tracker.gd" id="3_hf6oe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yv14j"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -33,20 +34,24 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hf6oe")
 
-[node name="Player" parent="." instance=ExtResource("1_nhyco")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
 [node name="Viceroy" type="CSGCombiner3D" parent="."]
 material_override = SubResource("StandardMaterial3D_nhyco")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Viceroy"]
-size = Vector3(16, 1, 16)
+size = Vector3(64, 1, 64)
 material = SubResource("StandardMaterial3D_hf6oe")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Viceroy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Viceroy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 0)
 size = Vector3(1, 8, 8)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Tracker" type="Label" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_hf6oe")
+
+[node name="Player" parent="." instance=ExtResource("1_nhyco")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
