@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bditn8njckoa4"]
+[gd_scene load_steps=10 format=3 uid="uid://bditn8njckoa4"]
 
 [ext_resource type="PackedScene" uid="uid://dqmh8wtvgqnhf" path="res://objects/player.tscn" id="1_swrlg"]
 [ext_resource type="Script" uid="uid://bhbnckoxjn7o" path="res://objects/player_tracker.gd" id="2_b4xfu"]
 [ext_resource type="PackedScene" uid="uid://cvtupnih1jbgd" path="res://objects/PrototypeCar.tscn" id="2_khhby"]
 [ext_resource type="PackedScene" uid="uid://bfd183aex14h3" path="res://objects/PrototypeShortBuilding.tscn" id="3_homkq"]
-[ext_resource type="Texture2D" uid="uid://qujoded7yqxh" path="res://assets/kenney_prototype_textures/Dark/texture_08.png" id="4_b7jj4"]
 [ext_resource type="PackedScene" uid="uid://d4f6304fhppkj" path="res://objects/PrototypeTallBuilding.tscn" id="5_f10kx"]
+[ext_resource type="Script" uid="uid://263kpufr4rap" path="res://scenes/player_spawn.gd" id="6_f10kx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_swrlg"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -19,15 +19,6 @@ background_mode = 2
 sky = SubResource("Sky_b4xfu")
 tonemap_mode = 2
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_swrlg"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_homkq"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f10kx"]
-albedo_texture = ExtResource("4_b7jj4")
-uv1_triplanar = true
-uv1_world_triplanar = true
-
 [node name="MapPrototyping" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -37,22 +28,14 @@ environment = SubResource("Environment_khhby")
 transform = Transform3D(-0.866025, -0.485981, 0.117571, 0, 0.235142, 0.971961, -0.5, 0.841743, -0.203639, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("1_swrlg")]
-transform = Transform3D(0.826187, 0, -0.563396, 0, 1, 0, 0.563396, 0, 0.826187, 3.79372, 1.6506, 2.40525)
-camera_max_tilt = 0.05
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Map" type="StaticBody3D" parent="."]
+[node name="Tracker" type="Label" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_b4xfu")
 
-[node name="Bottomless pit" type="CollisionShape3D" parent="Map"]
-shape = SubResource("WorldBoundaryShape3D_swrlg")
-debug_color = Color(0.578065, 0, 0.160969, 1)
-debug_fill = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Bottomless pit"]
-transform = Transform3D(2270.97, 0, 0, 0, 0.999999, 0, 0, 0, 2388.55, 0, 0, 0)
-mesh = SubResource("PlaneMesh_homkq")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_f10kx")
+[node name="Map" type="Node" parent="."]
 
 [node name="Car1" parent="Map" instance=ExtResource("2_khhby")]
 
@@ -71,9 +54,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -28.06
 [node name="Car2" parent="Map" instance=ExtResource("2_khhby")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -20.813, 0, 15.4519)
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_swrlg")]
 
-[node name="Tracker" type="Label" parent="HUD"]
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("2_b4xfu")
+[node name="PlayerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9694, 8.42977, 0)
+script = ExtResource("6_f10kx")
