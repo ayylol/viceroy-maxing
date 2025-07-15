@@ -60,7 +60,7 @@ var _vertical_velocity : float
 
 @export_group("slide")
 @export var sliding_speed : float = 12.
-@export var sliding_decel : float = 32.
+@export var sliding_decel : float = 5.
 
 @export_group("slamming")
 @export var slamming_speed : float = 50.
@@ -112,10 +112,8 @@ func jump() -> bool:
 func dash() -> bool:
 	if Input.is_action_just_pressed("dash") and consume_stamina(1.):
 		var horizontal_input = get_horizontal_input()
-		if horizontal_input:
-			_horizontal_velocity = horizontal_input * dashing_speed
-		else:
-			_horizontal_velocity = get_forward_direction() * dashing_speed
+		var dir = horizontal_input if horizontal_input else get_forward_direction()
+		_horizontal_velocity = dir * dashing_speed
 		dash_timer = dash_duration
 		current_state = State.DASHING
 		return true
@@ -137,10 +135,8 @@ func slide() -> bool:
 	if slide_buffer_timer > 0. and is_on_floor():
 		current_state = State.SLIDING
 		var horizontal_input = get_horizontal_input()
-		if horizontal_input:
-			_horizontal_velocity = horizontal_input * _horizontal_velocity.length()
-		else:
-			_horizontal_velocity = get_forward_direction() * _horizontal_velocity.length()
+		var dir = horizontal_input if horizontal_input else get_forward_direction()
+		_horizontal_velocity = dir * max(_horizontal_velocity.length(), sliding_speed)
 		return true
 	return false
 
@@ -169,11 +165,7 @@ func sliding_process(delta: float) -> void:
 	if jump():
 		return
 	_vertical_velocity -= _gravity * delta
-	if _horizontal_velocity:
-		_horizontal_velocity = _horizontal_velocity.normalized() * maxf(_horizontal_velocity.length(), sliding_speed)
-	else:
-		_horizontal_velocity = get_forward_direction() * sliding_speed
-	_horizontal_velocity = _horizontal_velocity.move_toward(_horizontal_velocity.normalized() * sliding_speed, sliding_decel * delta)
+	_horizontal_velocity = _horizontal_velocity.move_toward(Vector2.ZERO, sliding_decel * delta)
 
 func dashing_process(delta: float) -> void:
 	dash_timer = move_toward(dash_timer, 0., delta)
@@ -270,7 +262,6 @@ func camera_process(delta: float) -> void:
 	var fov_goal = default_fov+speed_percent*(max_fov-default_fov)
 	var fov_speed = fov_speed_up if camera.fov < fov_goal else fov_speed_down
 	camera.fov = move_toward(camera.fov, fov_goal, fov_speed*delta)
-	#print(camera.fov)
 
 	_rotation_input = 0.
 	_tilt_input = 0.
@@ -337,7 +328,7 @@ func _physics_process(delta: float) -> void:
 			wall_bouncing_process(delta)
 
 	velocity = Vector3(_horizontal_velocity.x, _vertical_velocity, _horizontal_velocity.y)
-	
+
 	if Input.is_action_pressed("shoot"):
 		gun_animation_player.play("spin")
 
