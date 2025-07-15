@@ -39,11 +39,11 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_swrlg")]
 transform = Transform3D(0.826187, 0, -0.563396, 0, 1, 0, 0.563396, 0, 0.826187, 3.79372, 1.6506, 2.40525)
+camera_max_tilt = 0.05
 
 [node name="Map" type="StaticBody3D" parent="."]
 
 [node name="Bottomless pit" type="CollisionShape3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_swrlg")
 debug_color = Color(0.578065, 0, 0.160969, 1)
 debug_fill = false

@@ -9,6 +9,11 @@ extends CharacterBody3D
 @export var camera_max_tilt : float = .02
 @export var camera_tilt_speed : float = .5
 
+@export var fov_speed_up : float = 100
+@export var fov_speed_down : float = 150
+@export var default_fov : float = 75
+@export var max_fov : float = 100
+
 @onready var head : Node3D = $Head
 @onready var camera : Camera3D = $Head/Camera3D
 
@@ -250,16 +255,20 @@ func camera_process(delta: float) -> void:
 	head.transform.basis = Basis.from_euler(Vector3(_mouse_rotation.x, 0., 0.))
 	head.rotation.z = .0
 
-	# Camera Tilt
 	global_transform.basis = Basis.from_euler(Vector3(0., _mouse_rotation.y, 0.))
-	var lr_axis := Input.get_axis("move_left", "move_right")
-	if lr_axis < 0.:
-		camera.rotation.z = min(camera_max_tilt, camera.rotation.z+camera_tilt_speed*delta)
-	elif lr_axis > 0.:
-		camera.rotation.z = max(-camera_max_tilt, camera.rotation.z-camera_tilt_speed*delta)
-	elif camera.rotation.z != 0.:
-		var new_camera_tilt = camera.rotation.z-camera_tilt_speed*delta*sign(camera.rotation.z)
-		camera.rotation.z = new_camera_tilt if sign(new_camera_tilt) == sign(camera.rotation.z) else 0. 
+
+	# Camera Tilt
+	var tilt_goal = -camera_max_tilt*Input.get_axis("move_left", "move_right")
+	camera.rotation.z = move_toward(camera.rotation.z, tilt_goal, camera_tilt_speed*delta)
+
+	# Speed FOV
+	var speed_percent = clamp(
+		(_horizontal_velocity.length() - walking_speed)/
+		(dashing_speed - walking_speed), 0.,1.)
+	var fov_goal = default_fov+speed_percent*(max_fov-default_fov)
+	var fov_speed = fov_speed_up if camera.fov < fov_goal else fov_speed_down
+	camera.fov = move_toward(camera.fov, fov_goal, fov_speed*delta)
+	#print(camera.fov)
 
 	_rotation_input = 0.
 	_tilt_input = 0.
