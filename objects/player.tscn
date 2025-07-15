@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://w8724wma7kbi"]
+[gd_scene load_steps=4 format=3 uid="uid://dqmh8wtvgqnhf"]
 
 [ext_resource type="Script" uid="uid://du8556q0ixisv" path="res://objects/viceroy_controller.gd" id="1_eqqp1"]
+[ext_resource type="PackedScene" uid="uid://by8khhrgn18yc" path="res://objects/gun.tscn" id="2_ykyjo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5gfmb"]
 
@@ -14,3 +15,9 @@ shape = SubResource("CapsuleShape3D_5gfmb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Gun" parent="Head/Camera3D" instance=ExtResource("2_ykyjo")]
+transform = Transform3D(-0.114822, 0, -0.00639745, 0, 0.115, 0, 0.00639745, 0, -0.114822, 0.196852, -0.0951821, -0.302)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5gfmb")

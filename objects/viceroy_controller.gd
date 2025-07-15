@@ -17,6 +17,7 @@ extends CharacterBody3D
 
 @onready var head : Node3D = $Head
 @onready var camera : Camera3D = $Head/Camera3D
+@onready var gun_animation_player: AnimationPlayer = $Head/Camera3D/Gun/AnimationPlayer
 
 var _mouse_rotation : Vector3
 var _rotation_input : float
@@ -336,5 +337,8 @@ func _physics_process(delta: float) -> void:
 			wall_bouncing_process(delta)
 
 	velocity = Vector3(_horizontal_velocity.x, _vertical_velocity, _horizontal_velocity.y)
+	
+	if Input.is_action_pressed("shoot"):
+		gun_animation_player.play("spin")
 
 	move_and_slide()
