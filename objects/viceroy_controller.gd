@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export_range(.1, 1., .05) var look_sensitivity : float = .3
 @export var walking_height : float = .5
 @export var sliding_height : float = -.5
+@export var duck_speed : float = 10
 
 @export var camera_max_tilt : float = .02
 @export var camera_tilt_speed : float = .5
@@ -273,10 +274,8 @@ func camera_process(delta: float) -> void:
 	_rotation_input = 0.
 	_tilt_input = 0.
 
-	if current_state == State.SLIDING:
-		head.position.y = sliding_height
-	else:
-		head.position.y = walking_height
+	var head_pos_goal = sliding_height if current_state == State.SLIDING else walking_height
+	head.position.y = move_toward(head.position.y,head_pos_goal, duck_speed*delta)
 
 func get_horizontal_input() -> Vector2:
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")

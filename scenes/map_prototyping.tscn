@@ -60,7 +60,16 @@ surface_material_override/0 = SubResource("StandardMaterial3D_f10kx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.685, 0, 0)
 
 [node name="TallBuilding1" parent="Map" instance=ExtResource("5_f10kx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.7375, 0, 16.3402)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 16.7375, 0, 16.3402)
+
+[node name="TallBuilding2" parent="Map" instance=ExtResource("5_f10kx")]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -33.6178, 0, -3.25874)
+
+[node name="ShortBuilding2" parent="Map" instance=ExtResource("3_homkq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -28.0684, 0, 15.3307)
+
+[node name="Car2" parent="Map" instance=ExtResource("2_khhby")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -20.813, 0, 15.4519)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
